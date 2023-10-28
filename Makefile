@@ -1,3 +1,14 @@
+.PHONY: check-config
+check-config:
+	if [ -f ~/.config/dwl/config.h ]; then \
+		if ! diff -q ~/.config/dwl/config.h config.h > /dev/null; then \
+			cp ~/.config/dwl/config.h config.h; \
+			$(MAKE) all; \
+		fi \
+	fi
+
+all: check-config dwl
+
 .POSIX:
 .SUFFIXES:
 
