@@ -33,9 +33,15 @@ wlr-layer-shell-unstable-v1-protocol.h:
 		protocols/wlr-layer-shell-unstable-v1.xml $@
 
 config.h:
-	cp config.def.h $@
+	if [ ! -f $@ ]; then \
+		if [ -f ~/.config/dwl/config.h ]; then \
+			cp ~/.config/dwl/config.h $@; \
+		else \
+			cp config.def.h $@; \
+		fi \
+	fi
 clean:
-	rm -f dwl *.o *-protocol.h
+	rm -f dwl *.o *-protocol.h config.h
 
 dist: clean
 	mkdir -p dwl-$(VERSION)
